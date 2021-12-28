@@ -3,64 +3,55 @@
   <div class="home">
     <ConfirmDialog></ConfirmDialog>
     <!-- <div>头像URL：<input v-model="avatar" @blur="changeAvatar" /></div> -->
-    <Panel header="语音获取" class="mb15">
+    <Panel header="语音获取"
+           class="mb15">
       <div class="pb15">
         <div class="pb10">捕获模式：</div>
         <div class="flex">
           <div class="mr10">
-            <label
-              ><RadioButton
-                name="getType"
-                value="1"
-                v-model="getType"
-                @change="getTypeChange"
-              />
-              自由捕获</label
-            >
+            <label>
+              <RadioButton name="getType"
+                           value="1"
+                           v-model="getType"
+                           @change="getTypeChange" />
+              自由捕获
+            </label>
           </div>
           <div class="mr10">
-            <label
-              ><RadioButton
-                name="getType"
-                value="2"
-                v-model="getType"
-                @change="getTypeChange"
-              />
-              鼠标按住</label
-            >
+            <label>
+              <RadioButton name="getType"
+                           value="2"
+                           v-model="getType"
+                           @change="getTypeChange" />
+              鼠标按住
+            </label>
           </div>
           <div class="mr10">
-            <label
-              ><RadioButton
-                name="getType"
-                value="3"
-                v-model="getType"
-                @change="getTypeChange"
-              />
-              鼠标移入</label
-            >
+            <label>
+              <RadioButton name="getType"
+                           value="3"
+                           v-model="getType"
+                           @change="getTypeChange" />
+              鼠标移入
+            </label>
           </div>
           <div class="mr10">
-            <label
-              ><RadioButton
-                name="getType"
-                value="4"
-                v-model="getType"
-                @change="getTypeChange"
-              />
-              按住空格</label
-            >
+            <label>
+              <RadioButton name="getType"
+                           value="4"
+                           v-model="getType"
+                           @change="getTypeChange" />
+              按住空格
+            </label>
           </div>
           <div class="mr10">
-            <label
-              ><RadioButton
-                name="getType"
-                value="0"
-                v-model="getType"
-                @change="getTypeChange"
-              />
-              禁止捕获</label
-            >
+            <label>
+              <RadioButton name="getType"
+                           value="0"
+                           v-model="getType"
+                           @change="getTypeChange" />
+              禁止捕获
+            </label>
           </div>
         </div>
         <div v-if="analyser && getType === '1'">
@@ -69,155 +60,129 @@
           </div>
           <div class="mb10">
             <div class="pb10">阈值({{ voiceThreshold }})：</div>
-            <Slider
-              v-model="voiceThreshold"
-              :min="0"
-              :max="100"
-              @change="voiceThresholdChange"
-            />
+            <Slider v-model="voiceThreshold"
+                    :min="0"
+                    :max="100"
+                    @change="voiceThresholdChange" />
           </div>
           <div class="mb10">
             <div class="pb10">灵敏度({{ -minDecibels }}dB)：</div>
-            <Slider
-              v-model="minDecibels"
-              @change="minDecibelsChange"
-              :min="31"
-              :max="100"
-            />
+            <Slider v-model="minDecibels"
+                    @change="minDecibelsChange"
+                    :min="31"
+                    :max="100" />
           </div>
           <div class="mb10">
             <div class="pb10">断句延时(ms)：</div>
-            <InputNumber
-              v-model.number="breakTime"
-              showButtons
-              buttonLayout="horizontal"
-              :step="1"
-              incrementButtonIcon="pi pi-plus"
-              decrementButtonIcon="pi pi-minus"
-              :min="100"
-              :max="10000"
-            />
+            <InputNumber v-model.number="breakTime"
+                         showButtons
+                         buttonLayout="horizontal"
+                         :step="1"
+                         incrementButtonIcon="pi pi-plus"
+                         decrementButtonIcon="pi pi-minus"
+                         :min="100"
+                         :max="10000" />
           </div>
 
           <div class="mb10">
             <div class="pb10">
-              立即发送语音控制：<InputSwitch v-model="speedSendFlag" />
+              立即发送语音控制：
+              <InputSwitch v-model="speedSendFlag" />
             </div>
             <div v-show="speedSendFlag">
-              <InputText
-                placeholder="当语音说这个词的时候就会立即发送语音"
-                v-model="speedSendText"
-                class="input-text-full"
-              />
+              <InputText placeholder="当语音说这个词的时候就会立即发送语音"
+                         v-model="speedSendText"
+                         class="input-text-full" />
             </div>
           </div>
 
           <div class="mb10">
             <div class="pb10">
-              删除语音控制：<InputSwitch v-model="speedDeleteFlag" />
+              删除语音控制：
+              <InputSwitch v-model="speedDeleteFlag" />
             </div>
             <div v-show="speedDeleteFlag">
-              <InputText
-                placeholder="当语音说这个词的时候就会删除语音"
-                v-model="speedDeleteText"
-                class="input-text-full"
-              />
+              <InputText placeholder="当语音说这个词的时候就会删除语音"
+                         v-model="speedDeleteText"
+                         class="input-text-full" />
             </div>
           </div>
         </div>
         <div>
           <div class="mb10 mt10">
             <div class="pb10">延迟发送(ms)：</div>
-            <InputNumber
-              v-model.number="sendTimeDaly"
-              showButtons
-              buttonLayout="horizontal"
-              :step="1"
-              incrementButtonIcon="pi pi-plus"
-              decrementButtonIcon="pi pi-minus"
-              :min="0"
-            />
+            <InputNumber v-model.number="sendTimeDaly"
+                         showButtons
+                         buttonLayout="horizontal"
+                         :step="1"
+                         incrementButtonIcon="pi pi-plus"
+                         decrementButtonIcon="pi pi-minus"
+                         :min="0" />
           </div>
         </div>
         <div class="pb10 pt10">
-          <Button
-            label="复制控制器URL"
-            class="p-button-raised p-button-text p-button-sm p-button-mr10"
-            @click="copyControlUrl('speechcontrol')"
-          />
-          <Button
-            label="打开控制器"
-            class="p-button-raised p-button-text p-button-sm"
-            @click="openControlUrl('speechcontrol')"
-          />
+          <Button label="复制控制器URL"
+                  class="p-button-raised p-button-text p-button-sm p-button-mr10"
+                  @click="copyControlUrl('speechcontrol')" />
+          <Button label="打开控制器"
+                  class="p-button-raised p-button-text p-button-sm"
+                  @click="openControlUrl('speechcontrol')" />
         </div>
       </div>
       <div class="pb10">状态：{{ status }}</div>
       <div class="p-inputgroup mb10">
-        <InputText
-          placeholder="编辑内容"
-          v-model="message"
-          @keypress.enter="sendByUser"
-        />
-        <Button
-          label="手动发送"
-          @click="sendByUser"
-          @keypress.enter="sendByUser"
-        />
+        <InputText placeholder="编辑内容"
+                   v-model="message"
+                   @keypress.enter="sendByUser" />
+        <Button label="手动发送"
+                @click="sendByUser"
+                @keypress.enter="sendByUser" />
       </div>
       <div v-show="sendTimeDaly > 0">
         <div>发送队列：</div>
-        <div v-for="item in sendList" :key="item.id" class="send-list">
+        <div v-for="item in sendList"
+             :key="item.id"
+             class="send-list">
           <div>
             {{ item.message }}
-            <Button
-              label="立刻发送"
-              class="p-button-text nopadding-btn"
-              @click="quickSend(item)"
-            />
-            <Button
-              label="编辑"
-              class="p-button-text p-button-help nopadding-btn"
-              @click="editMessage(item)"
-            />
-            <Button
-              label="删除"
-              class="p-button-text p-button-danger nopadding-btn"
-              @click="deleteMessage(item.id)"
-            />
+            <Button label="立刻发送"
+                    class="p-button-text nopadding-btn"
+                    @click="quickSend(item)" />
+            <Button label="编辑"
+                    class="p-button-text p-button-help nopadding-btn"
+                    @click="editMessage(item)" />
+            <Button label="删除"
+                    class="p-button-text p-button-danger nopadding-btn"
+                    @click="deleteMessage(item.id)" />
           </div>
           <div class="pt5">
-            <ProgressBar
-              class="send-time-progress"
-              :showValue="false"
-              :value="
+            <ProgressBar class="send-time-progress"
+                         :showValue="false"
+                         :value="
                 (1 -
                   (item.sendTime - timeNow) / (item.sendTime - item.addTime)) *
                   100
-              "
-            />
+              " />
           </div>
         </div>
       </div>
     </Panel>
-    <Panel header="全局设置" class="mb15">
+    <Panel header="全局设置"
+           class="mb15">
       <form>
         <div class="pb15">
           <div class="pb10">
-            头像URL：<Avatar
-              shape="circle"
-              :image="avatarPre"
-              v-if="avatarPre"
-            />
+            头像URL：
+            <Avatar shape="circle"
+                    :image="avatarPre"
+                    v-if="avatarPre" />
           </div>
 
           <div>
-            <InputText
-              class="input-text-full"
-              @blur="changeAvatar"
-              placeholder="设置头像URL"
-              v-model="avatar"
-            />
+            <InputText class="input-text-full"
+                       @blur="changeAvatar"
+                       placeholder="设置头像URL"
+                       v-model="avatar" />
           </div>
         </div>
         <div class="pb15">
@@ -227,102 +192,88 @@
 
           <div class="flex">
             <div class="mr10">
-              <label
-                ><RadioButton
-                  name="selModel"
-                  value="LiveroiD_A-Y01"
-                  v-model="selModel"
-                />
-                LiveroiD_A-Y01</label
-              >
+              <label>
+                <RadioButton name="selModel"
+                             value="LiveroiD_A-Y01"
+                             v-model="selModel" />
+                LiveroiD_A-Y01
+              </label>
             </div>
             <div class="mr10">
-              <label
-                ><RadioButton
-                  name="selModel"
-                  value="LiveroiD_A-Y02"
-                  v-model="selModel"
-                />
-                LiveroiD_A-Y02</label
-              >
+              <label>
+                <RadioButton name="selModel"
+                             value="LiveroiD_A-Y02"
+                             v-model="selModel" />
+                LiveroiD_A-Y02
+              </label>
             </div>
             <div class="mr10">
-              <label
-                ><RadioButton
-                  name="selModel"
-                  value="hiyori"
-                  v-model="selModel"
-                />
-                桃瀬ひより</label
-              >
+              <label>
+                <RadioButton name="selModel"
+                             value="hiyori"
+                             v-model="selModel" />
+                桃瀬ひより
+              </label>
             </div>
           </div>
         </div>
         <div class="pb15">
           <div class="pb10">是否语音播报：</div>
 
-          <div><InputSwitch v-model="isSpeech" /></div>
+          <div>
+            <InputSwitch v-model="isSpeech" />
+          </div>
         </div>
         <div v-show="isSpeech">
           <div class="pb15">
             <div class="pb10">语音提供商：</div>
             <div>
-              <SelectButton
-                v-model="cloudSel"
-                :options="cloudList"
-                optionLabel="name"
-                optionValue="value"
-              />
+              <SelectButton v-model="cloudSel"
+                            :options="cloudList"
+                            optionLabel="name"
+                            optionValue="value" />
             </div>
           </div>
           <div v-show="cloudSel === 'azure'">
             <div class="pb15">
               <div class="pb10">
-                声源（参考<a
-                  href="https://docs.microsoft.com/zh-cn/azure/cognitive-services/speech-service/language-support#text-to-speech"
-                  target="_blank"
-                  >Azure文档</a
-                >）：
+                声源（参考<a href="https://docs.microsoft.com/zh-cn/azure/cognitive-services/speech-service/language-support#text-to-speech"
+                   target="_blank">Azure文档</a>）：
               </div>
               <div>
-                <InputText class="input-text-full" v-model="azureVoice" />
+                <InputText class="input-text-full"
+                           v-model="azureVoice" />
               </div>
             </div>
             <div class="pb15">
               <div class="pb10">密钥：</div>
               <div>
-                <Password
-                  :feedback="false"
-                  class="input-text-full"
-                  v-model="azureKey"
-                  toggleMask
-                />
+                <Password :feedback="false"
+                          class="input-text-full"
+                          v-model="azureKey"
+                          toggleMask />
               </div>
             </div>
             <div class="pb15">
               <div class="pb10">位置/区域：</div>
               <div>
-                <Password
-                  :feedback="false"
-                  class="input-text-full"
-                  v-model="azureRegion"
-                  toggleMask
-                />
+                <Password :feedback="false"
+                          class="input-text-full"
+                          v-model="azureRegion"
+                          toggleMask />
               </div>
             </div>
             <div class="pb15">
               <div class="pb10">语速({{ azureRate }}%)：</div>
               <div>
-                <InputNumber
-                  v-model.number="azureRate"
-                  showButtons
-                  buttonLayout="horizontal"
-                  :step="1"
-                  incrementButtonIcon="pi pi-plus"
-                  decrementButtonIcon="pi pi-minus"
-                  :min="10"
-                  :max="300"
-                />
+                <InputNumber v-model.number="azureRate"
+                             showButtons
+                             buttonLayout="horizontal"
+                             :step="1"
+                             incrementButtonIcon="pi pi-plus"
+                             decrementButtonIcon="pi pi-minus"
+                             :min="10"
+                             :max="300" />
               </div>
             </div>
             <div class="pb15">
@@ -332,30 +283,26 @@
                 }}Hz)：
               </div>
               <div>
-                <InputNumber
-                  v-model.number="azurePitch"
-                  showButtons
-                  buttonLayout="horizontal"
-                  :step="1"
-                  incrementButtonIcon="pi pi-plus"
-                  decrementButtonIcon="pi pi-minus"
-                  :min="-200"
-                  :max="200"
-                />
+                <InputNumber v-model.number="azurePitch"
+                             showButtons
+                             buttonLayout="horizontal"
+                             :step="1"
+                             incrementButtonIcon="pi pi-plus"
+                             decrementButtonIcon="pi pi-minus"
+                             :min="-200"
+                             :max="200" />
               </div>
             </div>
           </div>
           <div v-show="cloudSel === 'googleCloud'">
             <div class="pb15">
               <div class="pb10">
-                声源（参考<a
-                  href="https://cloud.google.com/text-to-speech"
-                  target="_blank"
-                  >谷歌云文档</a
-                >）：
+                声源（参考<a href="https://cloud.google.com/text-to-speech"
+                   target="_blank">谷歌云文档</a>）：
               </div>
               <div>
-                <InputText class="input-text-full" v-model="googleVoice" />
+                <InputText class="input-text-full"
+                           v-model="googleVoice" />
               </div>
             </div>
             <div class="pb15">
@@ -363,16 +310,14 @@
                 语速：
               </div>
               <div>
-                <InputNumber
-                  v-model.number="googleSpeakingRate"
-                  showButtons
-                  buttonLayout="horizontal"
-                  :step="0.01"
-                  incrementButtonIcon="pi pi-plus"
-                  decrementButtonIcon="pi pi-minus"
-                  :min="0.25"
-                  :max="4"
-                />
+                <InputNumber v-model.number="googleSpeakingRate"
+                             showButtons
+                             buttonLayout="horizontal"
+                             :step="0.01"
+                             incrementButtonIcon="pi pi-plus"
+                             decrementButtonIcon="pi pi-minus"
+                             :min="0.25"
+                             :max="4" />
               </div>
             </div>
             <div class="pb15">
@@ -380,16 +325,14 @@
                 语调：
               </div>
               <div>
-                <InputNumber
-                  v-model.number="googlePitch"
-                  showButtons
-                  buttonLayout="horizontal"
-                  :step="1"
-                  incrementButtonIcon="pi pi-plus"
-                  decrementButtonIcon="pi pi-minus"
-                  :min="-20"
-                  :max="20"
-                />
+                <InputNumber v-model.number="googlePitch"
+                             showButtons
+                             buttonLayout="horizontal"
+                             :step="1"
+                             incrementButtonIcon="pi pi-plus"
+                             decrementButtonIcon="pi pi-minus"
+                             :min="-20"
+                             :max="20" />
               </div>
             </div>
           </div>
@@ -397,69 +340,59 @@
             <div class="pb15">
               <div class="pb10">APPKEY：</div>
               <div>
-                <Password
-                  :feedback="false"
-                  class="input-text-full"
-                  v-model="appkey"
-                  toggleMask
-                />
+                <Password :feedback="false"
+                          class="input-text-full"
+                          v-model="appkey"
+                          toggleMask />
               </div>
             </div>
             <div class="pb15">
               <div class="pb10">AccessToken：</div>
               <div>
-                <Password
-                  :feedback="false"
-                  class="input-text-full"
-                  v-model="AccessToken"
-                  toggleMask
-                />
+                <Password :feedback="false"
+                          class="input-text-full"
+                          v-model="AccessToken"
+                          toggleMask />
               </div>
             </div>
             <div class="pb15">
               <div class="pb10">
-                声源（参考<a
-                  href="https://help.aliyun.com/document_detail/84435.htm?spm=a2c4g.11186623.2.22.28cf4a9c70HlT2#topic-2572243"
-                  target="_blank"
-                  >阿里云文档</a
-                >）：
+                声源（参考<a href="https://help.aliyun.com/document_detail/84435.htm?spm=a2c4g.11186623.2.22.28cf4a9c70HlT2#topic-2572243"
+                   target="_blank">阿里云文档</a>）：
               </div>
-              <div><InputText class="input-text-full" v-model="voice" /></div>
+              <div>
+                <InputText class="input-text-full"
+                           v-model="voice" />
+              </div>
             </div>
           </div>
         </div>
-        <Button label="发送设置" class="p-button-sm" @click="saveSetting" />
+        <Button label="发送设置"
+                class="p-button-sm"
+                @click="saveSetting" />
       </form>
     </Panel>
     <Panel header="获取地址">
       <div class="pb15">
         <div class="pb10">气泡聊天窗：</div>
         <div>
-          <Button
-            label="复制聊天窗URL"
-            class="p-button-raised p-button-text p-button-sm p-button-mr10"
-            @click="copyControlUrl('chat')"
-          />
-          <Button
-            label="打开聊天窗"
-            class="p-button-raised p-button-text p-button-sm"
-            @click="openControlUrl('chat')"
-          />
+          <Button label="复制聊天窗URL"
+                  class="p-button-raised p-button-text p-button-sm p-button-mr10"
+                  @click="copyControlUrl('chat')" />
+          <Button label="打开聊天窗"
+                  class="p-button-raised p-button-text p-button-sm"
+                  @click="openControlUrl('chat')" />
         </div>
       </div>
       <div class="pb15">
         <div class="pb10">live2d：</div>
         <div>
-          <Button
-            label="复制live2d URL"
-            class="p-button-raised p-button-text p-button-sm p-button-mr10"
-            @click="copyControlUrl('live2d')"
-          />
-          <Button
-            label="打开live2d"
-            class="p-button-raised p-button-text p-button-sm"
-            @click="openControlUrl('live2d')"
-          />
+          <Button label="复制live2d URL"
+                  class="p-button-raised p-button-text p-button-sm p-button-mr10"
+                  @click="copyControlUrl('live2d')" />
+          <Button label="打开live2d"
+                  class="p-button-raised p-button-text p-button-sm"
+                  @click="openControlUrl('live2d')" />
         </div>
       </div>
     </Panel>
@@ -504,7 +437,7 @@ export default {
     Slider,
     ConfirmDialog,
   },
-  data() {
+  data () {
     return {
       rec: null,
       message: '',
@@ -513,6 +446,10 @@ export default {
       status: '未启动',
       getType: '0',
       cloudList: [
+        {
+          name: '本地',
+          value: 'local',
+        },
         {
           name: '谷歌娘(仅海外)',
           value: 'googleNiang',
@@ -532,7 +469,7 @@ export default {
       ],
       isSpeech: false,
       avatar: '',
-      cloudSel: 'googleNiang',
+      cloudSel: 'local',
       appkey: '',
       AccessToken: '',
       voice: 'xiaoyun',
@@ -580,36 +517,36 @@ export default {
   },
   computed: {},
   watch: {
-    status() {
+    status () {
       this.sendHomeStatus()
     },
-    sendTimeDaly(v) {
+    sendTimeDaly (v) {
       localStorage.setItem('sendTimeDaly', v)
     },
-    breakTime(v) {
+    breakTime (v) {
       console.log(v)
       localStorage.setItem('breakTime', v)
     },
 
-    speedSendFlag(v) {
+    speedSendFlag (v) {
       console.log(v)
       localStorage.setItem('speedSendFlag', v)
     },
-    speedSendText(v) {
+    speedSendText (v) {
       console.log(v)
       localStorage.setItem('speedSendText', v)
     },
-    speedDeleteFlag(v) {
+    speedDeleteFlag (v) {
       console.log(v)
       localStorage.setItem('speedDeleteFlag', v)
     },
-    speedDeleteText(v) {
+    speedDeleteText (v) {
       console.log(v)
       localStorage.setItem('speedDeleteText', v)
     },
 
     sendList: {
-      handler(v) {
+      handler (v) {
         console.log(v)
         this.socket.emit('sendMessageListData', v)
       },
@@ -617,19 +554,19 @@ export default {
     },
   },
   methods: {
-    quickSend(item) {
+    quickSend (item) {
       item['sendTime'] = this.timeNow
     },
-    editMessage(item) {
+    editMessage (item) {
       this.message = item.message
       this.deleteMessage(item.id)
     },
-    deleteMessage(id) {
+    deleteMessage (id) {
       this.sendList = this.sendList.filter((item) => {
         return item.id !== id
       })
     },
-    initTime() {
+    initTime () {
       workerTimers.setInterval(() => {
         if (this.sendList.length > 0) {
           this.timeNow = new Date().getTime()
@@ -637,21 +574,21 @@ export default {
         }
       }, 42)
     },
-    voiceThresholdChange() {
+    voiceThresholdChange () {
       localStorage.setItem('voiceThreshold', this.voiceThreshold)
     },
-    initAudioListen() {
+    initAudioListen () {
       AudioAPI.start().then((a) => {
         this.analyser = a
         this.minDecibelsChange()
         this.startGetVoiceSize()
       })
     },
-    minDecibelsChange() {
+    minDecibelsChange () {
       this.analyser.minDecibels = -this.minDecibels
       localStorage.setItem('minDecibels', this.minDecibels)
     },
-    startGetVoiceSize() {
+    startGetVoiceSize () {
       this.timer = workerTimers.setInterval(() => {
         if (this.getType === '1') {
           const voiceSize = AudioAPI.getVoiceSize(this.analyser)
@@ -680,16 +617,16 @@ export default {
         }
       }, 30)
     },
-    sendHomeStatus() {
+    sendHomeStatus () {
       this.socket.emit('sendHomeStatus', {
         status: this.status,
         getType: this.getType,
       })
     },
-    openControlUrl(url) {
+    openControlUrl (url) {
       window.open(`${window.location.origin}/${url}`, '_blank')
     },
-    async copyControlUrl(url) {
+    async copyControlUrl (url) {
       const { toClipboard } = useClipboard()
 
       try {
@@ -709,7 +646,7 @@ export default {
         })
       }
     },
-    saveSetting() {
+    saveSetting () {
       const settingData = {
         isSpeech: this.isSpeech,
         avatar: this.avatar,
@@ -736,19 +673,19 @@ export default {
       })
       localStorage.setItem('liveSpeechSetting', JSON.stringify(settingData))
     },
-    sendByUser() {
+    sendByUser () {
       if (this.message === '') {
         return false
       }
       this.addToSendList(this.message)
       this.message = ''
     },
-    changeAvatar() {
+    changeAvatar () {
       // console.log("aa")
       // localStorage.setItem('liveSpeechAvatar', this.avatar)
       this.avatarPre = this.avatar
     },
-    toSocket() {
+    toSocket () {
       this.socket = io.connect('/socketchat')
       this.socket.on('connect', () => {
         console.log('已连接')
@@ -843,7 +780,7 @@ export default {
         console.log('已断开')
       })
     },
-    addToSendList(message) {
+    addToSendList (message) {
       this.sendList.push({
         id:
           String(new Date().getTime()) +
@@ -854,7 +791,7 @@ export default {
         sendTime: new Date().getTime() + this.sendTimeDaly,
       })
     },
-    doSendMessageList() {
+    doSendMessageList () {
       if (this.sendList.length > 0) {
         const time = this.timeNow
         let count = 0
@@ -871,10 +808,10 @@ export default {
         }
       }
     },
-    send(message) {
+    send (message) {
       this.socket.emit('send', { message: message })
     },
-    getTypeChange() {
+    getTypeChange () {
       switch (this.getType) {
         case '0':
           this.speechStop()
@@ -896,13 +833,13 @@ export default {
       }
       this.sendHomeStatus()
     },
-    speechStart() {
+    speechStart () {
       this.rec.start()
     },
-    speechStop() {
+    speechStop () {
       this.rec.stop()
     },
-    initSpeech() {
+    initSpeech () {
       const rec = new window.webkitSpeechRecognition()
       this.rec = rec
       rec.continuous = true
@@ -1003,13 +940,13 @@ export default {
         console.log('on audio end')
       }
     },
-    init() {
+    init () {
       const settingDataStr = localStorage.getItem('liveSpeechSetting') || ''
       if (settingDataStr) {
         const settingData = JSON.parse(settingDataStr)
         this.isSpeech = settingData.isSpeech ? true : false
         this.avatar = settingData.avatar || ''
-        this.cloudSel = settingData.cloudSel || 'googleNiang'
+        this.cloudSel = settingData.cloudSel || 'local'
         this.appkey = settingData.appkey || ''
         this.AccessToken = settingData.AccessToken || ''
         this.voice = settingData.voice || 'xiaoyun'
@@ -1034,8 +971,8 @@ export default {
       this.initSpeech()
     },
   },
-  created() {},
-  mounted() {
+  created () { },
+  mounted () {
     this.init()
     this.initTime()
     this.$confirm.require({
@@ -1056,13 +993,13 @@ export default {
       },
     })
   },
-  beforeCreate() {},
-  beforeMount() {},
-  beforeUpdate() {},
-  updated() {},
-  beforeUnmount() {},
-  unmounted() {},
-  activated() {},
+  beforeCreate () { },
+  beforeMount () { },
+  beforeUpdate () { },
+  updated () { },
+  beforeUnmount () { },
+  unmounted () { },
+  activated () { },
 }
 </script>
 <style>

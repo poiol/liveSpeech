@@ -2,9 +2,11 @@
 <template>
   <div>
     <transition name="fade">
-      <div class="kaiwa" v-if="chatShow">
+      <div class="kaiwa"
+           v-if="chatShow">
         <figure class="kaiwa-img-right">
-          <img :src="avatar" alt="no-img2" />
+          <img :src="avatar"
+               alt="no-img2" />
           <!-- <figcaption class="kaiwa-img-description">
           主播
         </figcaption> -->
@@ -26,7 +28,7 @@ import io from 'socket.io-client'
 export default {
   name: 'chat',
   components: {},
-  data() {
+  data () {
     return {
       chat: '',
       chatList: [],
@@ -39,21 +41,21 @@ export default {
       appkey: '',
       AccessToken: '',
       voice: 'xiaoyun',
+      synth: null
     }
   },
   computed: {},
   watch: {},
   methods: {
-    playVoice(voiceUrl) {
+    playVoice (voiceUrl, chat) {
       if (this.isSpeech) {
         let url = ''
         switch (this.cloudSel) {
           case 'aliyun':
-            url = `https://nls-gateway.cn-shanghai.aliyuncs.com/stream/v1/tts?appkey=${
-              this.appkey
-            }&token=${this.AccessToken}&text=${encodeURI(
-              this.chat
-            )}&format=mp3&sample_rate=16000&voice=${this.voice}`
+            url = `https://nls-gateway.cn-shanghai.aliyuncs.com/stream/v1/tts?appkey=${this.appkey
+              }&token=${this.AccessToken}&text=${encodeURI(
+                this.chat
+              )}&format=mp3&sample_rate=16000&voice=${this.voice}`
             break
           case 'googleNiang':
             url = voiceUrl
@@ -64,15 +66,20 @@ export default {
           case 'azure':
             url = voiceUrl
             break
+          case 'local':
+            url = voiceUrl
+            break
           default:
             break
         }
-        if (url) {
+        if (this.cloudSel === 'local') {
+          this.localSpeech(chat)
+        } else if (url) {
           const speech = new Audio(url)
           speech.load()
           speech
             .play()
-            .then(() => {})
+            .then(() => { })
             .catch(() => {
               setTimeout(() => {
                 this.playNextChat()
@@ -92,18 +99,30 @@ export default {
         }, this.chat.length * 300)
       }
     },
-    say(chat, voiceUrl) {
+    localSpeech (chat) {
+      this.synth = window.speechSynthesis
+      const synthMsg = new SpeechSynthesisUtterance()
+      synthMsg.voice = this.synth.getVoices()[15]
+      synthMsg.text = chat
+      console.log(synthMsg)
+      this.synth.speak(synthMsg)
+      synthMsg.onend = () => {
+        // 播报下一位
+        this.playNextChat()
+      }
+    },
+    say (chat, voiceUrl) {
       this.chat = chat
       this.$nextTick(() => {
         this.chatShow = true
-        this.playVoice(voiceUrl)
+        this.playVoice(voiceUrl, chat)
       })
       clearTimeout(this.chatShowTimer)
       this.chatShowTimer = setTimeout(() => {
         this.chatShow = false
       }, this.chat.length * 1000)
     },
-    addChat(chatData) {
+    addChat (chatData) {
       let playFlag = false
       if (this.chatList.length === 0) {
         playFlag = true
@@ -113,12 +132,12 @@ export default {
         this.playNextChat(true)
       }
     },
-    removeChat() {
+    removeChat () {
       if (this.chatList.length > 0) {
         this.chatList.shift()
       }
     },
-    playNextChat(noremove) {
+    playNextChat (noremove) {
       if (!noremove) {
         this.removeChat()
       }
@@ -127,7 +146,7 @@ export default {
         this.say(chatData.chat, chatData.voiceUrl)
       }
     },
-    toSocket() {
+    toSocket () {
       this.socket = io.connect('/socketchat')
       this.socket.on('msg', (data) => {
         const chatData = {
@@ -155,19 +174,19 @@ export default {
       })
     },
   },
-  created() {
+  created () {
     this.toSocket()
   },
-  mounted() {},
-  beforeCreate() {},
-  beforeMount() {},
-  beforeUpdate() {},
-  updated() {},
-  beforeUnmount() {
+  mounted () { },
+  beforeCreate () { },
+  beforeMount () { },
+  beforeUpdate () { },
+  updated () { },
+  beforeUnmount () {
     this.socket.close()
   },
-  unmounted() {},
-  activated() {},
+  unmounted () { },
+  activated () { },
 }
 </script>
 <style>
@@ -239,14 +258,14 @@ p.kaiwa-text:last-child {
 /* 左の三角形を作る */
 .kaiwa-text-right:before {
   position: absolute;
-  content: '';
+  content: "";
   border: 10px solid transparent;
   top: 15px;
   left: -20px;
 }
 .kaiwa-text-right:after {
   position: absolute;
-  content: '';
+  content: "";
   border: 10px solid transparent;
   border-right: 10px solid #eee;
   top: 15px;
@@ -255,14 +274,14 @@ p.kaiwa-text:last-child {
 /* 右の三角形を作る */
 .kaiwa-text-left:before {
   position: absolute;
-  content: '';
+  content: "";
   border: 10px solid transparent;
   top: 15px;
   right: -20px;
 }
 .kaiwa-text-left:after {
   position: absolute;
-  content: '';
+  content: "";
   border: 10px solid transparent;
   border-left: 10px solid rgb(254 244 255 / 80%);
   top: 15px;
@@ -272,7 +291,7 @@ p.kaiwa-text:last-child {
 .kaiwa:after,
 .kaiwa:before {
   clear: both;
-  content: '';
+  content: "";
   display: block;
 }
 .fade-leave-active,
